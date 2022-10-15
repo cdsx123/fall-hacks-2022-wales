@@ -3,6 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import { Button, TextField, TextareaAutosize, InputLabel, MenuItem, FormControl } from "@mui/material";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { Link } from "react-router-dom";
 import { LocalizationProvider, DateTimePicker } from '@mui/x-date-pickers';
 import "./Form.css"
 
@@ -11,20 +12,6 @@ const Form = () => {
   const onSubmit = React.useCallback((input) => {
     console.log(input)
   },[])
-
-  let selections = [
-    <MenuItem value={1} key={1}>One</MenuItem>,
-    <MenuItem value={2} key={2}>Two</MenuItem>,
-    <MenuItem value={3} key={3}>Three</MenuItem>,
-    <MenuItem value={4} key={4}>Four</MenuItem>,
-    <MenuItem value={5} key={5}>Five</MenuItem>,
-    <MenuItem value={6} key={6}>Six</MenuItem>,
-    <MenuItem value={7} key={7}>Seven</MenuItem>,
-    <MenuItem value={8} key={8}>Eight</MenuItem>,
-    <MenuItem value={9} key={9}>Nine</MenuItem>,
-    <MenuItem value={10} key={10}>Ten</MenuItem>,
-  ]
-
 
   return (
     <div>
@@ -224,12 +211,15 @@ const Form = () => {
               />
             </LocalizationProvider>
         )} />
-        <Button onClick={handleSubmit(onSubmit)} variant="outlined">Submit</Button>
+        <div id="buttons">
+          <Button component={Link} to="/" variant="outlined">Cancel</Button>
+          <Button onClick={handleSubmit(onSubmit)} variant="outlined">Submit</Button>
+        </div>
           
       </form>
-    </div>
-    
+    </div>  
   )
+
 }
 
 export default Form
