@@ -71,8 +71,5 @@ const Form = () => {
           </LocalizationProvider>
         )} />
       <Button onClick={handleSubmit(onSubmit)} variant="outlined">Submit</Button>
-    </form>
-  )
-};
 
 export default Form
