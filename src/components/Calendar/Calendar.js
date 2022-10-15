@@ -9,12 +9,7 @@ export default class DemoApp extends React.Component {
         return (
             <FullCalendar
                 plugins={[dayGridPlugin, interactionPlugin]}
-                eventContent={renderEventContent}
                 dateClick={this.handleDateClick}
-                events={[
-                    { title: 'event 1', date: '2022-10-01' },
-                    { title: 'event 2', date: '2022-10-02' }
-                ]}
             />
         )
     }
@@ -23,15 +18,4 @@ export default class DemoApp extends React.Component {
         alert(arg.dateStr)
     }
 
-
-
-}
-
-function renderEventContent(eventInfo) {
-    return (
-        <>
-            <b>{eventInfo.timeText}</b>
-            <i>{eventInfo.event.title}</i>
-        </>
-    )
 }
