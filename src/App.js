@@ -1,11 +1,12 @@
-
+import Layout from "./components/Layout";
+import Notification from "./components/Notification";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-    </div>
+   <>
+    <Layout/>
+    <Notification/>
+   </>
   );
 }
 
