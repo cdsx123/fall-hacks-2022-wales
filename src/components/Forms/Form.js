@@ -60,7 +60,6 @@ const Form = () => {
         <Controller
           name="weight"
           control={control}
-          defaultValue={0}
           render={({ field: { onChange, value } }) => (
             <TextField
               id="weight"
@@ -97,7 +96,6 @@ const Form = () => {
         <Controller
           name="difficulty"
           control={control}
-          defaultValue={1}
           render={({ field: { onChange, value } }) => (
             <TextField
               id="difficulty"
@@ -118,23 +116,114 @@ const Form = () => {
 
 
         <Controller
-          name="dueDate"
+          name="deadline"
           control={control}
-          defaultValue={new Date}
           render={({ field: { onChange, value } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateTimePicker
-                label="Assignment Due Date"
+                id="deadline"
+                label="Assignment Deadline"
                 value={value}
                 onChange={onChange}
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
         )} />
-        
-        
 
+        <Controller
+          name="professor"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              id="professor"
+              value={value}
+              label="Professor Name"
+              onChange={onChange}
+            />
+        )} />
 
+        Late Penalty:
+        <div id="latePenalty">
+          <p>Lose</p> 
+          <Controller
+            name="penAmount"
+            control={control}
+            defaultValue={1}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                className="lateInput"
+                id="penAmount"
+                value={value}
+                InputProps={{
+                  inputProps: { 
+                      max: 100, min: 1 
+                  }
+                }}
+                onKeyDown={(event) => {
+                  event.preventDefault();
+                }}
+                type="number"
+                variant="standard"
+               
+                onChange={onChange}
+              />
+          )} />
+          <p>% every</p>
+          <Controller
+            name="intervalAmount"
+            control={control}
+            defaultValue={1}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                className="lateInput"
+                id="intervalAmount"
+                value={value}
+                InputProps={{
+                  inputProps: { 
+                      max: 100, min: 1 
+                  }
+                }}
+                onKeyDown={(event) => {
+                  event.preventDefault();
+                }}
+                type="number"
+       
+                variant="standard"
+                onChange={onChange}
+              />
+          )} />
+          <Controller
+            name="intervalType"
+            control={control}
+            defaultValue="day"
+            render={({ field: { onChange, value } }) => (
+              <Select
+                id="intervalType"
+                value={value}
+               
+                onChange={onChange}
+              > 
+                <MenuItem value="day">Day(s)</MenuItem>
+                <MenuItem value="hour">Hour(s)</MenuItem>
+                <MenuItem value="minute">Minute(s)</MenuItem>
+              </Select>
+          )} />
+        </div>
+
+        <Controller
+          name="hardDeadline"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateTimePicker
+                id="hardDeadline"
+                label="Hard Deadline"
+                value={value}
+                onChange={onChange}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+        )} />
         <Button onClick={handleSubmit(onSubmit)} variant="outlined">Submit</Button>
           
       </form>

@@ -1,8 +1,8 @@
 form {
-  border: 2px solid black;
   display: flex;
-  flex-direction: column
-  
+  flex-flow: column nowrap;
+  gap: 10px;
+  font-size: 18px;
 }
 
 #description {
@@ -12,6 +12,20 @@ form {
 }
 
 #latePenalty {
-  display: inline;
-  width: 200px;
+  display: flex;
+  align-items: center;
+  
+}
+
+#latePenalty > * {
+  margin: 0px 5px;
+}
+
+.lateInput {
+  width: 25px;
+  text-align: center;
+}
+
+#latePenalty > p {
+  font-size: 18px;
 }
