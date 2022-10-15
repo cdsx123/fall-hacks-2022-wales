@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Button } from "@mui/material";
-import { TextField } from "@mui/material";
+import { Button, TextField, InputLabel, MenuItem, FormControl } from "@mui/material";
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { LocalizationProvider, DateTimePicker } from '@mui/x-date-pickers';
+import "./Form.css"
 
 const Form = () => {
   const { handleSubmit, control } = useForm();
@@ -27,7 +27,8 @@ const Form = () => {
             onChange={onChange}
             value={value}
           />
-        )} />
+      )} />
+
       <Controller
         name="weight"
         control={control}
@@ -37,11 +38,11 @@ const Form = () => {
             variant="outlined"
             label="% Of Grade"
             required
-            autoFocus
             onChange={onChange}
             value={value}
           />
-        )} />
+      )} />
+
       <Controller
         name="credits"
         control={control}
@@ -51,11 +52,11 @@ const Form = () => {
             variant="outlined"
             label="Course Credits"
             required
-            autoFocus
             onChange={onChange}
             value={value}
           />
-        )} />
+      )} />
+
       <Controller
         name="date"
         control={control}
@@ -69,7 +70,26 @@ const Form = () => {
               inputFormat="DD/MM/YYYY"
             />
           </LocalizationProvider>
-        )} />
+      )} />
+        
+      <Controller
+        name="description"
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <TextField
+            id="description"
+            variant="outlined"
+            label="Assignment Description"
+            required
+            onChange={onChange}
+            value={value}
+          />
+      )} />
+
       <Button onClick={handleSubmit(onSubmit)} variant="outlined">Submit</Button>
+        
+    </form>
+  )
+}
 
 export default Form
