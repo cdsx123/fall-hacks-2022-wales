@@ -1,7 +1,7 @@
 import React, { Components, useEffect, useState, localStorage, useLocalStorage } from "react"
 import Box from "@mui/system/Box";
 
-function FinishTask(date) {
+function FinishTask() {
     let [data, setData] = useState();
     let [boxReturn, setBoxReturn] = useState();
     
