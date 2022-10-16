@@ -1,12 +1,12 @@
 
 
-export function calculate(weight, priority, difficulty, date){
+function calculate(weight, priority, difficulty, date){
     //date = dd/mm/yyyy string
     let value = 0;
     let time_index = 0;
     let time_diff = date.getTime() - Date.now();
     time_diff = time_diff/1000/60/60;
-
+    let i;
     let time_interval = 120; //time range: 1->8760
     let cur = time_diff/time_interval;
     for (i=0;i<cur;i++){
@@ -26,3 +26,6 @@ export function calculate(weight, priority, difficulty, date){
     value = value / (priority + diff_index + time_index);  //distribution averaging
     return value;
 }
+
+
+export default calculate;

@@ -2,7 +2,7 @@ import React from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import { db } from '../db/storage';
-
+import calculate from '../Utils/Calculate'
 
 const Notification = () => {
   const [events, setEvents] = React.useState(null);
@@ -14,7 +14,11 @@ const Notification = () => {
     }
 
     const json = JSON.parse(data);
-    const newEvents = json["data"].map((e) => {
+
+      json["data"].sort(function (e, e2) { return calculate(e['weight'], e['credits'], e['difficulty'], e['deadline']) - calculate(e2['weight'], e2['credits'], e2['difficulty'], e2['deadline']) });
+      json["data"].reverse();
+      const newEvents = json["data"].map((e) => {
+      
       return { name: e.name }
     })
 

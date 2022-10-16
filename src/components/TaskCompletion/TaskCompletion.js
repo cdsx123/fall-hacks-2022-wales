@@ -37,10 +37,10 @@ function FinishTask() {
     const MINUTE_MS = 60000;
     useEffect(() => {
         const interval = setInterval(() => { 
-            let listOfCourses = window.localStorage.getItem("Assignments");
+            let listOfCourses = window.localStorage.getItem("data");
             if (listOfCourses != null) {
-
-                let listOfParsedCourses = JSON.parse(listOfCourses);
+                let parseJsonArray = JSON.parse(listOfCourses);
+                let listOfParsedCourses = parseJsonArray["data"];
                 for (let i = 0; i < listOfParsedCourses.length; i++) {
 
                     if ((new Date()).getTime() >= (listOfParsedCourses[i]['Deadline']).getTime()) {
