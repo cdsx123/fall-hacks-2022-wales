@@ -6,12 +6,21 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Link } from "react-router-dom";
 import { LocalizationProvider, DateTimePicker } from '@mui/x-date-pickers';
 import "./Form.css"
+import { db } from "../../db/storage";
 
 const Form = () => {
   const { handleSubmit, control } = useForm();
   const onSubmit = React.useCallback((input) => {
-    console.log(input)
-  },[])
+    const data = db.getItem("data");
+    if(data !== null){
+      const jsonData = JSON.parse(data);
+      jsonData.data.push(input)
+      db.setItem("data",JSON.stringify(jsonData));
+    }else{
+      const jsonData =  {data:[input]}
+      db.setItem("data",JSON.stringify(jsonData));
+    }
+  },[]);
 
   return (
     <div>
