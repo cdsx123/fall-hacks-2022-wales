@@ -40,6 +40,30 @@ const Form = () => {
         )} />
 
         <Controller
+          name="professor"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              id="professor"
+              value={value}
+              label="Professor Name"
+              onChange={onChange}
+            />
+        )} />
+
+        <Controller
+          name="course"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              id="course"
+              value={value}
+              label="Course Name"
+              onChange={onChange}
+            />
+        )} />
+
+        <Controller
           name="description"
           control={control}
           render={({ field: { onChange, value } }) => (
@@ -126,29 +150,17 @@ const Form = () => {
             </LocalizationProvider>
         )} />
 
-        <Controller
-          name="professor"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextField
-              id="professor"
-              value={value}
-              label="Professor Name"
-              onChange={onChange}
-            />
-        )} />
-
         Late Penalty:
         <div id="latePenalty">
           <p>Lose</p> 
           <Controller
-            name="penAmount"
+            name="penaltyAmount"
             control={control}
             defaultValue={1}
             render={({ field: { onChange, value } }) => (
               <TextField
                 className="lateInput"
-                id="penAmount"
+                id="penaltyAmount"
                 value={value}
                 InputProps={{
                   inputProps: { 
