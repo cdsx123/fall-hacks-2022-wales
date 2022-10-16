@@ -1,34 +1,39 @@
 import React from 'react'
 import './style.css';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
-import Box from "@mui/system/Box";
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
+import { db } from '../../db/storage';
 
-export default class CalendarApp extends React.Component {
-    render() {
-        return (
-            <div className='calendar'>
-
-                
-                <FullCalendar
-                    width="100px"
-                    plugins={[dayGridPlugin, interactionPlugin]}
-                    dateClick={this.handleDateClick}
-                    events={[
-                        { title: 'event 1', date: '2022-10-01' },
-                        { title: 'event 2', date: '2019-04-02' }
-                    ]}
-                />
-                    
-            </div>
-        )
+const CalendarApp = () => {
+    const [events , setEvents] = React.useState(null)
+    const handleDateClick = (e) => { 
+        console.log(e.dateStr)
     }
 
-    handleDateClick = (arg) => { // bind with an arrow function
-        console.log(arg.dateStr)
-    }
-
+    React.useEffect(() => {
+        const data = db.getItem("data");
+        if(data === null){
+            return;
+        }
+        const json = JSON.parse(data);
+        const newEvents = json["data"].map((e) => {
+           return  {title: e.name, date: e.deadline.substr(0,e.deadline.indexOf("T"))}
+        })
+        setEvents(newEvents)
+    },[]);
+    return (
+        <div className='calendar'>
+            <FullCalendar
+                width="100px"
+                plugins={[dayGridPlugin, interactionPlugin]}
+                dateClick={handleDateClick}
+                events={events}
+            />
+        </div>
+    )
 }
+
+export default CalendarApp
 
 
