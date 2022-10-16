@@ -9,14 +9,15 @@ import "./Form.css"
 import { db } from "../../db/storage";
 
 function Form (props) {
+  console.log(props)
   const { handleSubmit, control } = useForm();
   const onSubmit = React.useCallback((input) => {
     const data = db.getItem("data");
     if(data !== null){
       const jsonData = JSON.parse(data);
       if (assignment) {
-        index = data.findIndex(assignment => assignment.name === props.match.params.id)
-        newData = [...jsonData.data.slice(0, index), ...items.slice(index + 1)]
+        let index = data.findIndex(assignment => assignment.name === props.match.params.id)
+        let newData = [...jsonData.data.slice(0, index), ...jsonData.slice(index + 1)]
         db.setItem("data",JSON.stringify({data: newData}));
       } else {
         jsonData.data.push(input)
@@ -34,7 +35,7 @@ function Form (props) {
   useEffect(() => {  
     if (props.match) {
       const data = JSON.parse(db.getItem("data")).data
-      setAssignment(data.find(assignment => assignment.name === props.match.params.id))
+      setAssignment(data.data.find(assignment => assignment.name === props.match.params.id))
     }
   }, [])
   return (
@@ -83,7 +84,7 @@ function Form (props) {
 
         <Controller
           name="description"
-          defaultValue={assignment ? assignment.description : null}
+          defaultValue={assignment ? assignment.description : ""}
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextareaAutosize

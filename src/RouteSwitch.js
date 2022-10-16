@@ -9,6 +9,7 @@ const RouteSwitch = () => {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/form" element={<Form />} />
+        <Route path="/form/:assignmentId" element={<Form />} />
       </Routes>
     </BrowserRouter>
   );
