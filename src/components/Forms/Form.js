@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Button, TextField, TextareaAutosize, InputLabel, MenuItem, FormControl } from "@mui/material";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -8,25 +8,41 @@ import { LocalizationProvider, DateTimePicker } from '@mui/x-date-pickers';
 import "./Form.css"
 import { db } from "../../db/storage";
 
-const Form = () => {
+function Form (props) {
   const { handleSubmit, control } = useForm();
   const onSubmit = React.useCallback((input) => {
     const data = db.getItem("data");
     if(data !== null){
       const jsonData = JSON.parse(data);
-      jsonData.data.push(input)
-      db.setItem("data",JSON.stringify(jsonData));
+      if (assignment) {
+        index = data.findIndex(assignment => assignment.name === props.match.params.id)
+        newData = [...jsonData.data.slice(0, index), ...items.slice(index + 1)]
+        db.setItem("data",JSON.stringify({data: newData}));
+      } else {
+        jsonData.data.push(input)
+        db.setItem("data",JSON.stringify(jsonData));
+      }
+     
     }else{
-      const jsonData =  {data:[input]}
+      const jsonData =  {data: [input]}
       db.setItem("data",JSON.stringify(jsonData));
     }
   },[]);
+  let [assignment, setAssignment] = useState(undefined)
+  
 
+  useEffect(() => {  
+    if (props.match) {
+      const data = JSON.parse(db.getItem("data")).data
+      setAssignment(data.find(assignment => assignment.name === props.match.params.id))
+    }
+  }, [])
   return (
     <div>
       <form>
         <Controller
           name="name"
+          defaultValue={assignment ? assignment.name : null}
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextField
@@ -41,6 +57,7 @@ const Form = () => {
 
         <Controller
           name="professor"
+          defaultValue={assignment ? assignment.professor : null}
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextField
@@ -53,6 +70,7 @@ const Form = () => {
 
         <Controller
           name="course"
+          defaultValue={assignment ? assignment.course : null}
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextField
@@ -65,6 +83,7 @@ const Form = () => {
 
         <Controller
           name="description"
+          defaultValue={assignment ? assignment.description : null}
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextareaAutosize
@@ -79,6 +98,7 @@ const Form = () => {
 
         <Controller
           name="weight"
+          defaultValue={assignment ? assignment.weight : null}
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextField
@@ -102,6 +122,7 @@ const Form = () => {
 
         <Controller
           name="credits"
+          defaultValue={assignment ? assignment.credits : null}
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextField
@@ -115,6 +136,7 @@ const Form = () => {
 
         <Controller
           name="difficulty"
+          defaultValue={assignment ? assignment.difficulty : null}
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextField
@@ -137,6 +159,7 @@ const Form = () => {
 
         <Controller
           name="deadline"
+          defaultValue={assignment ? assignment.deadline : null}
           control={control}
           render={({ field: { onChange, value } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -155,8 +178,9 @@ const Form = () => {
           <p>Lose</p> 
           <Controller
             name="penaltyAmount"
+            defaultValue={assignment ? assignment.penaltyAmount : 1}
             control={control}
-            defaultValue={1}
+
             render={({ field: { onChange, value } }) => (
               <TextField
                 className="lateInput"
@@ -179,8 +203,9 @@ const Form = () => {
           <p>% every</p>
           <Controller
             name="intervalAmount"
+            defaultValue={assignment ? assignment.intervalAmount : 1}
             control={control}
-            defaultValue={1}
+  
             render={({ field: { onChange, value } }) => (
               <TextField
                 className="lateInput"
@@ -202,8 +227,9 @@ const Form = () => {
           )} />
           <Controller
             name="intervalType"
+            defaultValue={assignment ? assignment.intervalType : "day"}
             control={control}
-            defaultValue="day"
+
             render={({ field: { onChange, value } }) => (
               <Select
                 id="intervalType"
@@ -220,6 +246,7 @@ const Form = () => {
 
         <Controller
           name="hardDeadline"
+          defaultValue={assignment ? assignment.hardDeadline : null}
           control={control}
           render={({ field: { onChange, value } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>

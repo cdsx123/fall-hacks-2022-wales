@@ -10,7 +10,6 @@ export default class CalendarApp extends React.Component {
         return (
             <div className='calendar'>
 
-                
                 <FullCalendar
                     width="100px"
                     plugins={[dayGridPlugin, interactionPlugin]}
