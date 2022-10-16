@@ -22,7 +22,7 @@ function FinishTask(date) {
             >
 
                 <p>
-                    Did you finish the task?
+                    Did you finish the task {data['course']}?
                 </p>
                 <button onClick={() => addFinishedTaskRecord(data, true)} style={{ width: "75px", height: "40px", marginLeft: "10px" }} >Yes</button>
                 <button onClick={() => addFinishedTaskRecord(data, false)} style={{ width: "75px", height: "40px", marginLeft: "10px" }} >No</button>
@@ -36,9 +36,7 @@ function FinishTask(date) {
     }
     const MINUTE_MS = 60000;
     useEffect(() => {
-        getIsTaskFinished() 
-        const interval = setInterval(() => {
-            getIsTaskFinished()    
+        const interval = setInterval(() => { 
             let listOfCourses = window.localStorage.getItem("Assignments");
             if (listOfCourses != null) {
 
