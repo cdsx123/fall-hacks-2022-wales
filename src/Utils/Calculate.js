@@ -4,7 +4,7 @@ export function calculate(weight, priority, difficulty, date){
     //date = dd/mm/yyyy string
     let value = 0;
     let time_index = 0;
-    let time_diff = date.now() - Date.now();
+    let time_diff = date.getTime() - Date.now();
     time_diff = time_diff/1000/60/60;
 
     let time_interval = 120; //time range: 1->8760
